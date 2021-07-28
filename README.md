@@ -1,10 +1,10 @@
 # QuantumPlayground.jl
 <br>
-##### Author: Anton Hibl, E-mail: antonhibl11@gmail.com
+#### Author: Anton Hibl, E-mail: antonhibl11@gmail.com
 
 <hr>
 
-### Introduction
+## Introduction
 The Quantum Playground package provides tools to quickly perform and test computations involving quantum compuational gates
 and their respective basis states. These are represented using Julia's already present Linear Algebra Syntax in unison with
 some of the higher level mathematical functions in the LinearAlgebra, Calculus, and Statistics packages. The goal is to create
@@ -16,18 +16,17 @@ inside of a notebook easily, as well as all the included mathematical packages a
 
 <hr>
 
-### API
+## API
 Most basic gates that would be involved in simple computations are included:
 
-<ul>
-   <li>`I = [1 0;0 1]`</li>
-   <li>`H = (1/√2)*[1 1;1 -1]`</li>
-   <li>`X = [0 1;1 0]`</li>
-   <li>`Y = [0 -im;im 0]`</li>
-   <li>`Z = [1 0;0 -1]`</li>
-   <li>`RX = (1/√(2))*[1+im 1-im;1-im 1+im]`</li>
-   <li>`SX = (1/√(2))*[1 -im;-im 1]`</li>
-</ul>
+- `I = [1 0;0 1]`
+- `H = (1/√2)*[1 1;1 -1]`
+- `X = [0 1;1 0]`
+- `Y = [0 -im;im 0]`
+- `Z = [1 0;0 -1]`
+- `RX = (1/√(2))*[1+im 1-im;1-im 1+im]`
+- `SX = (1/√(2))*[1 -im;-im 1]`
+
 these can be used like so:
 
 `QuantumPlayground.<gate name here>` -> `<gate is returned>`
