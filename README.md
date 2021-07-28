@@ -1,6 +1,7 @@
 # QuantumPlayground.jl
-<br>
-#### Author: Anton Hibl, E-mail: antonhibl11@gmail.com
+---
+Author: Anton Hibl, E-mail: antonhibl11@gmail.com
+---
 
 <hr>
 
