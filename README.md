@@ -52,13 +52,13 @@ model of quantum computation:
 : `Y = [0 -im;im 0]`, The Pauli Y gate is equivalent to Ry for the angle . It is equivalent to applying X and Z, up to a global phase factor.
 
 - The Pauli Z Gate
-: `Z = [1 0;0 -1]`, The Pauli Z gate acts as identity on the state and multiplies the sign of the state by -1. It therefore flips the and states. In the +/- basis, it plays the same role as the NOT gate in the $$ |0\rangle/|1\rangle $$ basis.
+: `Z = [1 0;0 -1]`, The Pauli Z gate acts as identity on the state and multiplies the sign of the state by -1. It therefore flips the and states. In the **+/-** basis, it plays the same role as the NOT gate in the **|0⟩/|1⟩** basis.
 
 - The RX Gate
 : `RX = (1/√(2))*[1+im 1-im;1-im 1+im]`, The RX gate implements . On the Bloch sphere, this gate corresponds to rotating the qubit state around the x axis by the given angle.
 
 - The Square Root of X Gate
-: `SX = (1/√(2))*[1 -im;-im 1]`, This gate implements the square-root of X, $$ \sqrt{X} $$. Applying this gate twice in a row produces the standard Pauli-X gate. Like the Hadamard gate, creates an equal superposition state if the qubit is in the state , but with a different relative phase.
+: `SX = (1/√(2))*[1 -im;-im 1]`, This gate implements the square-root of X, **√X**. Applying this gate twice in a row produces the standard Pauli-X gate. Like the Hadamard gate, creates an equal superposition state if the qubit is in the state , but with a different relative phase.
 
 these can be used like so:
 
