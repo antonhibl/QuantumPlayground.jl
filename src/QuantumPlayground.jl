@@ -35,7 +35,7 @@ written as \times in julia, this allows two matrixes to be combined into a tenso
 
 # Examples
 ```julia-repl
-julia> qp.I×qp.I
+julia> I×I
 [1 0 0 0;
  0 1 0 0;
  0 0 1 0;
@@ -48,7 +48,6 @@ greet() = print("Welcome to your Quantum Playground!")
 
 include("QubitGates.jl")
 include("PhotonPlayground.jl")
-include("LinearMethods.jl")
 include("BasisStates.jl")
 
 end # module

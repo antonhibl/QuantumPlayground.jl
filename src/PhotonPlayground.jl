@@ -1,4 +1,5 @@
-using QuantumPlayground as qp
+import QuantumPlayground
+using QuantumPlayground
 
 # Eulers Constant
 """
@@ -19,7 +20,7 @@ amplitude τ.
 
 # Examples
 ```julia-repl
-julia> qp.U(pi/2, pi/2)
+julia> U(pi/2, pi/2)
 [6.12323e-17+0.0im  -6.12323e-17-1.0im;
  6.12323e-17-1.0im   6.12323e-17+0.0im]
 ```
@@ -45,7 +46,7 @@ julia> qp.UB(pi/2)
  ```
 
  ```julia-repl
- julia> qp.UB(pi/2)*qp.UB(-pi/2)
+ julia> UB(pi/2)*UB(-pi/2)
  [1.0+0.0im  0.0+0.0im;
   0.0+0.0im  1.0+0.0im]
   ```
@@ -75,22 +76,22 @@ UP(θ) = [e^(im*θ) 0;0 1]
 
 # An Identity matrix keeping the imaginary portion coherent
 """
-    UI = qp.Rotation(qp.UB(pi/2), 2pi)
+    UI = Rotation(UB(pi/2), 2pi)
 
 This acts just like an Identity Gate but it also applies to an imaginary 
 element of a matrices inversion coherently.
 
 # Examples
 ```julia-repl
-julia> qp.UI*qp.AH
+julia> UI*AH
 [0.707107+0.707107im -0.707107-0.707107im;
  -0.707107-0.707107im 0.707107+0.707107im]
 ```
 
 ```julia-repl
-julia> qp.UI*qp.H
+julia> UI*H
 [0.707107-0.707107im   0.707107+0.707107im;
  0.707107-0.707107im  -0.707107-0.707107im]
  ```
 """
-UI = qp.Rotation(qp.UB(pi/2), 2pi)
+UI = QuantumPlayground.Rotation(UB(pi/2), 2pi)

@@ -7,7 +7,7 @@
 
 # Examples
 ```julia-repl
-julia> qp.zero_state
+julia> zero_state
 [1;
  0]
  ```
@@ -21,7 +21,7 @@ zero_state = [1;0]
 
 # Examples
 ```julia-repl
-julia> qp.one_state
+julia> one_state
 [0;
  1]
  ```
