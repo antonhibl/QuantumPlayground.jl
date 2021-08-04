@@ -1,14 +1,52 @@
 import QuantumPlayground
 using QuantumPlayground
 
+k = 1
+
 # Eulers Constant
 """
     e = MathConstants.e
 
 Eulers Constant.
 """
-
 e = MathConstants.e
+
+# ħ constant
+"""
+"""
+ħ = 2
+# ω(omega) constant
+"""
+"""
+ω = 1
+
+# The Annihilation and Creation Operators
+"""
+"""
+â = (im/2)+im*(im/2)
+
+"""
+"""
+âdag = (im/2)-im*(im/2)
+
+# the x̂ and p̂ quadrature operators
+"""
+"""
+x̂ = sqrt(ħ/(2*ω))*(â+âdag)
+
+"""
+"""
+p̂ = (1/im)*(sqrt((ħ*ω)/2))*(â-âdag)
+
+
+# Redefining the annihilation and creation operators
+"""
+"""
+â = x̂+im*p̂
+
+"""
+"""
+âdag = x̂-im*p̂
 
 # The Unitary matrix associated with a Beamsplitter
 """
@@ -95,3 +133,33 @@ julia> UI*H
  ```
 """
 UI = QuantumPlayground.Rotation(UB(pi/2), 2pi)
+
+# Dagger operation
+"""
+"""
+dag = QuantumPlayground.Hermitian
+
+# The Hamiltonian which corresponds to field energy
+"""
+"""
+Ĥ = ((ħ*ω)/2)*(â*dag(â)+dag(â)*â)
+
+# The Heisenberg Equation of motion of an operator
+"""
+"""
+Â(t) = e^(im*(Ĥ/ħ)*t)*e^(-im*(Ĥ/ħ)*0)
+
+# The Vector Potential Operator
+"""
+"""
+𝕬(r, t) = Â(0)*e^(im*(k*r-ω*t))*â+conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â)
+
+# The Electric Field Operator
+"""
+"""
+𝕰(r, t) = im*ω*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+
+# The Magnetic Flux Density Operator
+"""
+"""
+𝕭(r,t) = im*k*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
