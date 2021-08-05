@@ -13,28 +13,50 @@ e = MathConstants.e
 
 # ħ constant
 """
+    ħ = 2
+
+Planck's constant, a physical constant that is the quantum of electromagnetic action, which relates the energy carried by a photon to its frequency. A photon's energy is equal to its frequency multiplied by the Planck constant.
 """
 ħ = 2
 # ω(omega) constant
 """
+    ω = k/mass
+
+a mathematical constant defined as the unique real number that satisfies the equation $$ Ωe^Ω=1 $$. The numerical value of **Ω** is given by $$ Ω = 0.567143290409783872999968662210... $$ and $$ 1/Ω = 1.763222834351896710225201776951... $$
 """
-ω = 1
+function ω(mass)
+	if mass == NaN
+		return 1
+	else
+		return k/mass
 
 # The Annihilation and Creation Operators
 """
+    â = (im/2)+im*(im/2)
+
+An annihilation operator lowers the number of particles in a given state by one.
 """
 â = (im/2)+im*(im/2)
 
 """
+    âdag = (im/2)-im*(im/2)
+
+The creation operator increases the number of particles in a given state by one, and it is the adjoint of the annihilation operator.
 """
 âdag = (im/2)-im*(im/2)
 
-# the x̂ and p̂ quadrature operators
+# field quadratures x̂ and p̂
 """
-"""
-x̂ = sqrt(ħ/(2*ω))*(â+âdag)
+    x̂ = √(ħ/(2*ω))*(â+âdag)
+
 
 """
+x̂ = √(ħ/(2*ω))*(â+âdag)
+
+"""
+    p̂ = (1/im)*(sqrt((ħ*ω)/2))*(â-âdag)
+
+The Position operator of a mass with a constant k
 """
 p̂ = (1/im)*(sqrt((ħ*ω)/2))*(â-âdag)
 
@@ -141,25 +163,40 @@ dag = QuantumPlayground.Hermitian
 
 # The Hamiltonian which corresponds to field energy
 """
+    Ĥ = ((ħ*ω)/2)*(â*dag(â)+dag(â)*â)
+
+The Hamiltonian, corresponds to the optical field energy.
 """
 Ĥ = ((ħ*ω)/2)*(â*dag(â)+dag(â)*â)
 
 # The Heisenberg Equation of motion of an operator
 """
+    Â(t) = e^(im*(Ĥ/ħ)*t)*e^(-im*(Ĥ/ħ)*0)
+
+The Heisenberg equation describing the motion of a particle over the passage of time.
 """
 Â(t) = e^(im*(Ĥ/ħ)*t)*e^(-im*(Ĥ/ħ)*0)
 
 # The Vector Potential Operator
 """
+    𝕬(r, t) = Â(0)*e^(im*(k*r-ω*t))*â+conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â)
+
+The Vector Potential Operator of an optical field.
 """
 𝕬(r, t) = Â(0)*e^(im*(k*r-ω*t))*â+conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â)
 
 # The Electric Field Operator
 """
+    𝕰(r, t) = im*ω*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+
+The Electrical Field Operator of an optical field.
 """
 𝕰(r, t) = im*ω*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
 
 # The Magnetic Flux Density Operator
 """
+    𝕭(r,t) = im*k*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+
+The Magnetic Flux Density Operator of an optical field.
 """
 𝕭(r,t) = im*k*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
