@@ -1,6 +1,9 @@
 import QuantumPlayground
 using QuantumPlayground
 
+"""
+The direction of the wave vector
+"""
 k = 1
 
 # Eulers Constant
@@ -22,13 +25,11 @@ Planck's constant, a physical constant that is the quantum of electromagnetic ac
 """
     ω = k/mass
 
-a mathematical constant defined as the unique real number that satisfies the equation $$ Ωe^Ω=1 $$. The numerical value of **Ω** is given by $$ Ω = 0.567143290409783872999968662210... $$ and $$ 1/Ω = 1.763222834351896710225201776951... $$
+a mathematical constant defined as the unique real number that satisfies the equation Ωe^Ω=1. The numerical value of **Ω** is given by Ω = 0.567143290409783872999968662210... and 1/Ω = 1.763222834351896710225201776951...
 """
 function ω(mass)
-	if mass == NaN
-		return 1
-	else
-		return k/mass
+	ω = k/mass
+end
 
 # The Annihilation and Creation Operators
 """
@@ -47,28 +48,33 @@ âdag = (im/2)-im*(im/2)
 
 # field quadratures x̂ and p̂
 """
-    x̂ = √(ħ/(2*ω))*(â+âdag)
+    x̂(k) = √(ħ/(2*ω(k)))*(â+âdag)
 
+The position operator with a mass constant k applied.
+"""
+x̂ = (1/im)*(ħ/(2*ω(k)))*(â+âdag)
 
 """
-x̂ = √(ħ/(2*ω))*(â+âdag)
+    p̂ = (1/im)*(sqrt((ħ*ω(k))/2))*(â-âdag)
 
+The momentum operator with a mass constant k applied.
 """
-    p̂ = (1/im)*(sqrt((ħ*ω)/2))*(â-âdag)
-
-The Position operator of a mass with a constant k
-"""
-p̂ = (1/im)*(sqrt((ħ*ω)/2))*(â-âdag)
-
+p̂ = (1/im)*(sqrt((ħ*ω(k))/2))*(â-âdag)
 
 # Redefining the annihilation and creation operators
 """
+    â = (x̂+im)*p̂
+
+The creation operator.
 """
-â = x̂+im*p̂
+â = (x̂+im)*p̂
 
 """
+    â = (x̂-im)*p̂
+
+The annihilation operator.
 """
-âdag = x̂-im*p̂
+âdag = (x̂-im)*p̂
 
 # The Unitary matrix associated with a Beamsplitter
 """
@@ -163,40 +169,40 @@ dag = QuantumPlayground.Hermitian
 
 # The Hamiltonian which corresponds to field energy
 """
-    Ĥ = ((ħ*ω)/2)*(â*dag(â)+dag(â)*â)
+    Ĥ(k) = ((ħ*ω(k))/2)*(â*âdag+âdag*â)
 
 The Hamiltonian, corresponds to the optical field energy.
 """
-Ĥ = ((ħ*ω)/2)*(â*dag(â)+dag(â)*â)
+Ĥ(k) = ((ħ*ω(k))/2)*(â*âdag+âdag*â)
 
 # The Heisenberg Equation of motion of an operator
 """
-    Â(t) = e^(im*(Ĥ/ħ)*t)*e^(-im*(Ĥ/ħ)*0)
+    Â(k, t) = e^(im*(Ĥ(k)/ħ)*t)*e^(-im*(Ĥ(k)/ħ)*0)
 
 The Heisenberg equation describing the motion of a particle over the passage of time.
 """
-Â(t) = e^(im*(Ĥ/ħ)*t)*e^(-im*(Ĥ/ħ)*0)
+Â(k, t) = e^(im*(Ĥ(k)/ħ)*t)*e^(-im*(Ĥ(k)/ħ)*0)
 
 # The Vector Potential Operator
 """
-    𝕬(r, t) = Â(0)*e^(im*(k*r-ω*t))*â+conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â)
+    𝕬(r, t) = Â(k,t)*e^(im*(k*r-ω(k)*t))*â+conj(Â(k,t))*e^(-im*(k*r-ω(k)*t))*âdag
 
 The Vector Potential Operator of an optical field.
 """
-𝕬(r, t) = Â(0)*e^(im*(k*r-ω*t))*â+conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â)
+𝕬(r, t) = Â(k,t)*e^(im*(k*r-ω(k)*t))*â+conj(Â(k,t))*e^(-im*(k*r-ω(k)*t))*âdag
 
 # The Electric Field Operator
 """
-    𝕰(r, t) = im*ω*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+    𝕰(r, t) = im*ω(k)*(Â(0)*e^(im*(k*r-ω(k)*t))*â-conj(Â(0))*e^(-im*(k*r-ω(k)*t))*âdag)
 
 The Electrical Field Operator of an optical field.
 """
-𝕰(r, t) = im*ω*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+𝕰(r, t) = im*ω(k)*(Â(k,t)*e^(im*(k*r-ω(k)*t))*â-conj(Â(k,t))*e^(-im*(k*r-ω(k)*t))*âdag)
 
 # The Magnetic Flux Density Operator
 """
-    𝕭(r,t) = im*k*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+    𝕭(r,t) = im*k*(Â(k,t)*e^(im*(k*r-ω(k)*t))*â-conj(Â(k,t))*e^(-im*(k*r-ω(k)*t))*âdag)
 
 The Magnetic Flux Density Operator of an optical field.
 """
-𝕭(r,t) = im*k*(Â(0)*e^(im*(k*r-ω*t))*â-conj(Â(0))*e^(-im*(k*r-ω*t))*dag(â))
+𝕭(r, t) = im*k*(Â(k,t)*e^(im*(k*r-ω(k)*t))*â-conj(Â(k,t))*e^(-im*(k*r-ω(k)*t))*âdag)
