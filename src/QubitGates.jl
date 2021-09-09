@@ -357,71 +357,11 @@ julia> P
 """
 P = [1 0;0 e^(im*pi)]
 
-# The Classical AND Gate
-"""
-    AND = [1 1 1 0;0 0 0 1]
-
-The classical AND gate for computing wih bits of information.
-
-# Examples
-```julia-repl
-julia> AND
-[1 1 1 0;
- 0 0 0 1]
-```
-"""
-AND = [1 1 1 0;0 0 0 1]
-
-# The Classical NAND Gate
-"""
-    NAND = [0 0 0 1;1 1 1 0]
-
-The classical NAND gate for computing with bits of information.
-
-# Examples
-```julia-repl
-julia> NAND
-[0 0 0 1;
- 1 1 1 0]
-```
-"""
-NAND = [0 0 0 1;1 1 1 0]
-
-# The Classical OR Gate
-"""
-    OR = [1 0 0 0;0 1 1 1]
-
-The classical OR gate for computing with bits of information.
-
-# Examples
-```julia-repl
-julia> OR
-[1 0 0 0;
- 0 1 1 1]
-```
-"""
-OR = [1 0 0 0;0 1 1 1]
-
-# The Classical NOR Gate
-"""
-    NOR = [0 1 1 1;1 0 0 0]
-
-The classical NOR gate for computing with bits of information.
-
-# Examples
-```julia-repl
-julia> NOR
-[0 1 1 1;
- 1 0 0 0]
-```
-"""
-NOR = [0 1 1 1;1 0 0 0]
-
 # The "Imaginary Identity" gate
 """
     II = qp.I+(qp.I*qp.Y*qp.X)
 
-An I gate with a very basic imaginary component along its Echelon Form Diagonal.
+An I gate with a very basic imaginary component along its Echelon Form Diagonal, serves as a basic way to clone information into an imaginary bit component.
 
 # Examples
 ```julia-repl
@@ -440,11 +380,11 @@ II = I+(I*Y*X)
 
 # Some potentially new gates I have constructed here
 
-# The Alpha-Hadamard Gate
+# The "Spinning" Hadamard Gate
 """
-    AH = ((Rotation([1 1;0 0], π))*H)
+    SpinH = ((Rotation([1 1;0 0], π))*H)
 
-A "Spinning" Hadamard gate, due to it being rotated while in superposition.
+A "Spinning" Hadamard gate, due to it being rotated while in superposition, its negative value is now in 2 places showing how it could have rotated either direction.
 
 # Examples
 ```julia-repl
@@ -452,24 +392,28 @@ julia> AH
 [0.707107  -0.707107;
  -0.707107  0.707107]
 """
-AH = ((Rotation([1 1;0 0], π))*H)
+SpinH = ((Rotation([1 1;0 0], π))*H)
 
 # The Hadamard Gate again
 """
-    H = -eigvecs(AH/sqrt(2))
+    H = -eigvecs(SpinH/sqrt(2))
 
-By using this new "AH" gate and the eigenvectors of its measured state, 
+By using this new "SpinH" gate and the eigenvectors of its measured state, 
 we can reconstruct a more accurate and faithful H gate that satisifies 
-H*H=I.
+H*H=I. In reality the SpinH is a spinning version of the originally defined
+Hadamard gate, defined as H = [1/√2 1/√2;1/√2 -1/√2]. This is the quantum gate
+which is notorious for being th egate which instigates a linear combination of states;
+in other words it is the quantum gate most commonly used to instigate states of superposition.
 """
-H = -eigvecs(AH/sqrt(2))
+H = -eigvecs(SpinH/sqrt(2))
 
 # The X-Hadamard Gate
 """
-    XH = (((([0 1;1 0]*RX)/sqrt(2))*SX)/sqrt(2))
+    SpIn = (((([0 1;1 0]*RX)/sqrt(2))*SX)/sqrt(2))
 
-A new theoretical H gate based on the principle that both the bits state, 
-and its spins along the descending diagonal are in superpositions.
+A new theoretical "I" gate based on the principle that both the bits state, 
+and its spins along the descending diagonal are in superpositions, meaning
+the I matrix is is represented as one 2 bits split in two between its real and imaginary parts.
 
 # Examples
 ```julia-repl
@@ -478,21 +422,6 @@ julia> XH
  0.0+0.0im  0.5-0.5im]
 """
 XH = (((([0 1;1 0]*RX)/sqrt(2))*SX)/sqrt(2))
-
-# The Quantum AND Gate
-"""
-    QAND = [-0.5+0.5im (1/√2);-(1/√2) 0.5-0.5im]
-
-A new Quantum Gate?
-
-# Examples
-```julia-repl
-julia> QAND
-[-0.5+0.5im  0.707107+0.0im;
- -0.707107+0.0im       0.5-0.5im]
-```
- """
-QAND = [-0.5+0.5im (1/√2);-(1/√2) 0.5-0.5im]
 
 # The Controlled-Not Gate
 """
@@ -605,34 +534,93 @@ Fredkin = [1 0 0 0 0 0;
 
 # The Adjacency Matrix
 """
-    Adjacency = [0 0 1 0;
-                 0 0 0 1;
-	         1 0 0 0;
-	         0 1 0 0]
+    Adj = [0 0 1 0;
+           0 0 0 1;
+	   1 0 0 0;
+	   0 1 0 0]
 
 The Adjacency Matrix is simply an expanded Identity matrix which can be used for 2-qubit computations.
 
 # Examples
 ```julia-repl
-julia> Adjacency
+julia> Adj
 [0 0 1 0;
  0 0 0 1;
  1 0 0 0;
  0 1 0 0]
 ```
 """
-Adjacency = [0 0 1 0;
-	   0 0 0 1;
-	   1 0 0 0;
-	   0 1 0 0]
+Adj = [0 0 1 0;
+       0 0 0 1;
+       1 0 0 0;
+       0 1 0 0]
 
 # Set Intersection Operation
 ⊕ = ⊻
 
-# The XOR Gate
+# B Gate
 """
-    XOR(A,B) = A⊕B
+     B(θ) = [cos(θ) -sin(θ);sin(θ) cos(θ)]
 
-The Exclusive OR Gate, a classical non-reversible computational gate.
+Quantum "Beam" gate, acts similarly to a beam splitter, test this using this gate and the UB gate from QuantumPlayground (this UB gate is more specifically a optical photon beamsplitter gate).
+
+# Examples
+```julia-repl
+julia> B(pi/4)
+[1/√2 -1/√2
+ 1/√2  1/√2]
+```
 """
-XOR(A,B) = A⊕B
+B(θ) = [cos(θ) -sin(θ);sin(θ) cos(θ)]
+
+# Reverse Split Gate
+"""
+    RSplit = qp.UB(11pi/4)
+
+A version of the beam splitter, placing the matrix of states into a superposition of states, or a linear combination of states, partly opposite to that of the Lsplit gate.
+
+# Examples
+```julia-repl
+julia> Rsplit
+[ -0.707107+0.0im   0.0-0.707107im
+   0.0-0.707107im  -0.707107+0.0im ]
+```
+"""
+Rsplit = QuantumPlayground.UB(11pi/4)
+
+# Forward Split Gate
+"""
+    Fsplit = qp.UB(5pi/4)
+
+A version of the beam splitter, placing the matrix into a superposition of states, or linear combination of states, partly opposite to that of the Rsplit gate
+
+# Examples
+```julia-repl
+julia> Fsplit
+[ -0.707107+0.0im  -0.0+0.707107im
+  -0.0+0.707107im  -0.707107+0.0im ]
+"""
+Fsplit = QuantumPlayground.UB(5pi/4)
+
+# The SWAP Gate
+"""
+    SWAP = [1 0 0 0;
+            0 0 1 0;
+	    0 1 0 0;
+	    0 0 0 1]
+
+The Swap Gate reterally interchanges the states of 2 qubits with each other.
+
+# Examples
+```julia-repl
+julia> SWAP
+[1 0 0 0
+ 0 0 1 0
+ 0 1 0 0
+ 0 0 0 1]
+```
+"""
+SWAP = [1 0 0 0;
+	0 0 1 0;
+	0 1 0 0;
+        0 0 0 1]
