@@ -4,20 +4,10 @@ module QuantumPlayground
 import LinearAlgebra
 import Calculus
 import Statistics
-import Pluto
 import MathPhysicalConstants
-import ChemEquations
-import Nettle
-import CryptoUtils
-
-using LinearAlgebra
 using Calculus
 using Statistics
-using Pluto
 using MathPhysicalConstants
-using ChemEquations
-using CryptoUtils
-using Nettle
 
 # Euler's Constant
 """

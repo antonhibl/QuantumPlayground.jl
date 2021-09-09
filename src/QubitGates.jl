@@ -100,11 +100,17 @@ H = (1/√(2))*[1 1;1 -1]
 
 # The Quantum S Phase Gate
 """
+    S = [1 0;0 e^((im*π)/2)]
+
+The S Gate initiates a phase of π/2.
 """
 S = [1 0;0 e^((im*π)/2)]
 
 # The Quantum T Phase Gate
 """
+    T = [1 0;0 e^((im*π)/4)]
+
+The T Gate initiates a phase of π/4.
 """
 T = [1 0;0 e^((im*π)/4)]
 
@@ -291,6 +297,21 @@ julia> RZ
 """
 RZ = [e^(-im*(pi/2)) 0;0 e^(im*(pi/2))]
 
+# The RY Gate
+"""
+    RY(θ) = [cos(θ/2 -sin(θ/2);sin(θ/2) cos(θ/2)]
+
+The Quantum RY Gate.
+
+# Examples
+```julia-repl
+julia> RY(pi)
+[6.12323e-17 -1.0;
+ 1.0 6.12323e-17]
+```
+"""
+RY(θ) = [cos(θ/2) -sin(θ/2);sin(θ/2) cos(θ/2)]
+
 # The "Square Root" of  Z Gate
 """
     SZ = S*S
@@ -460,15 +481,158 @@ XH = (((([0 1;1 0]*RX)/sqrt(2))*SX)/sqrt(2))
 
 # The Quantum AND Gate
 """
-    QAND = invert(Hermitian(AND))
+    QAND = [-0.5+0.5im (1/√2);-(1/√2) 0.5-0.5im]
 
-The Quantum AND Gate. An interesting new quantum gate I have discovered.
+A new Quantum Gate?
 
 # Examples
 ```julia-repl
 julia> QAND
-[-0.0 1.0;
- 1.0 -1.0]
+[-0.5+0.5im  0.707107+0.0im;
+ -0.707107+0.0im       0.5-0.5im]
 ```
  """
-QAND = invert(Hermitian(AND))
+QAND = [-0.5+0.5im (1/√2);-(1/√2) 0.5-0.5im]
+
+# The Controlled-Not Gate
+"""
+    CX = [1 0 0 0;0 1 0 0;0 0 0 1;0 0 1 0]
+
+The CX Gate acts as an entangling mechanism in quantum circuits.
+
+# Examples
+```julia-repl
+julia> CX
+[1 0 0 0;
+ 0 1 0 0;
+ 0 0 0 1;
+ 0 0 1 0]
+ ```
+ """
+ CX = [1 0 0 0;0 1 0 0;0 0 0 1;0 0 1 0]
+
+ # The Controlled-Y Gate
+ """
+     CY = [1 0 0 0;0 1 0 0;0 0 0 -im;0 0 im 0]
+
+Acts similarly to the Controlled Not in entangling.
+
+# Examples
+```julia-repl
+julia> CY
+[1 0 0 0;
+ 0 1 0 0;
+ 0 0 0 -im;
+ 0 0 im 0]
+```
+"""
+CY = [1 0 0 0;0 1 0 0;0 0 0 -im;0 0 im 0]
+
+# The Controlled-Z Gate
+"""
+    CZ = [1 0 0 0;0 1 0 0;0 0 1 0;0 0 0 -1]
+
+Acts similarly to the Controlled Not in entangling.
+
+# Examples
+```julia-repl
+julia> CZ
+[1 0 0 0;
+ 0 1 0 0;
+ 0 0 1 0;
+ 0 0 0 -1]
+```
+"""
+CZ = [1 0 0 0;0 1 0 0;0 0 1 0;0 0 0 -1]
+
+# The Toffoli Gate
+"""
+    Toffoli = [1 0 0 0 0 0;
+               0 1 0 0 0 0;
+               0 0 1 0 0 0;
+               0 0 0 1 0 0;
+               0 0 0 0 0 1;
+               0 0 0 0 1 0]
+
+The Toffoli Gate acts as an extension of the CX gate, having 2 control qubits instead of 1.
+
+# Examples
+```julia-repl
+julia> Toffoli
+[1  0  0  0  0  0;
+ 0  1  0  0  0  0;
+ 0  0  1  0  0  0;
+ 0  0  0  1  0  0;
+ 0  0  0  0  0  1;
+ 0  0  0  0  1  0]
+```
+"""
+Toffoli = [1 0 0 0 0 0;
+	   0 1 0 0 0 0;
+	   0 0 1 0 0 0;
+	   0 0 0 1 0 0;
+	   0 0 0 0 0 1;
+	   0 0 0 0 1 0]
+
+# The Fredkin Gate
+"""
+    Fredkin = [1 0 0 0 0 0;
+               0 1 0 0 0 0;
+               0 0 1 0 0 0;
+               0 0 0 0 1 0;
+               0 0 0 1 0 0;
+               0 0 0 0 0 1]
+
+The Fredkin Gate acts similarly to the Toffoli, having 2 control qubits. The main difference lies in the fact the not acts between the 4th and 5th qubits.
+
+# Examples
+```julia-repl
+julia> Fredkin
+[1 0 0 0 0 0;
+ 0 1 0 0 0 0;
+ 0 0 1 0 0 0;
+ 0 0 0 0 1 0;
+ 0 0 0 1 0 0;
+ 0 0 0 0 0 1]
+```
+"""
+Fredkin = [1 0 0 0 0 0;
+           0 1 0 0 0 0;
+           0 0 1 0 0 0;
+           0 0 0 0 1 0;
+           0 0 0 1 0 0;
+           0 0 0 0 0 1]
+
+# The Adjacency Matrix
+"""
+    Adjacency = [0 0 1 0;
+                 0 0 0 1;
+	         1 0 0 0;
+	         0 1 0 0]
+
+The Adjacency Matrix is simply an expanded Identity matrix which can be used for 2-qubit computations.
+
+# Examples
+```julia-repl
+julia> Adjacency
+[0 0 1 0;
+ 0 0 0 1;
+ 1 0 0 0;
+ 0 1 0 0]
+```
+"""
+Adjacency = [0 0 1 0;
+	   0 0 0 1;
+	   1 0 0 0;
+	   0 1 0 0]
+
+# Set Intersection Operation
+⊕ = ⊻
+
+# The XOR Gate
+"""
+    XOR(A,B) = A⊕B
+
+The Exclusive OR Gate, a classical non-reversible computational gate.
+"""
+XOR(A,B) = A⊕B
