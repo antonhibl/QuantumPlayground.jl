@@ -33,9 +33,31 @@ julia> I×I
 """
 × = LinearAlgebra.kron  # written as \times in julia
 
-# greet the user, can be used to test installation
-greet() = print("Welcome to your Quantum Playground!")
+# Polar Form Conversion Operation
+"""
+    polarform(complex_number) = r*(cos(θ)+im*sin(θ))
 
+A conversion function which can convert a complex number into its equivalent polar form. Can also be applied iteratively to matrices.
+
+# Examples
+```julia-repl
+julia> polarform(2-3i)
+3.605551275463989 * cos(-0.982793723247329) + im * sin(-0.982793723247329)
+
+2.0-2.99999im
+```
+"""
+function polarform(complex_number)
+	a = complex_number.re
+	b = complex_number.im
+	r = √(((a)^2)+((b)^2))
+	θ = atan(b/a)
+	polar = r*(cos(θ)+im*sin(θ))
+	print(r, " ", *, " ", cos, "(", θ, ")", " ", +, " ", im, " ", *, " ", sin, "(", θ, ")\n\n")
+	return polar
+end
+		
+# Inclusions
 include("QubitGates.jl")
 include("PhotonPlayground.jl")
 include("BasisStates.jl")

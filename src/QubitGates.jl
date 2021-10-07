@@ -1,8 +1,13 @@
+# Classical Quantum Gate Definitions
+# author: Anton Hibl
+
+# Importing Dependencies
 import LinearAlgebra
 import Calculus
 import Statistics
 import QuantumPlayground
 
+# Specifying Use of Dependencies
 using LinearAlgebra
 using Calculus
 using Statistics
@@ -17,15 +22,11 @@ Eulers Constant.
 """
 e = MathConstants.e
 
-#####################
-# Bit & Qubit Gates #
-#####################
-
 # The Pauli-X/NOT Gate
 """
     X = [0 1;1 0]
 
-The pauli X gate, equivalent to a 90° rotation about the X axis.
+The pauli X gate, equivalent to a 90° rotation about the X axis; also acts the same as a classical not gate, albeit remaining reversible.
 
 # Examples
 ```julia-repl
@@ -40,7 +41,7 @@ X = [0 1;1 0]
 """
     I = [1 0;0 1]
 
-The Identity Matrix
+The Identity Matrix, Returns the same matrix as whatever matrix it is applied to, the "identity".
 
 # Examples
 ```julia-repl
@@ -51,11 +52,11 @@ julia> I
 """
 I = [1 0;0 1]
 
-# The Pauli-X Gate
+# The Pauli-Y Gate
 """
     Y = [0 -im;im 0]
 
-The pauli Y gate, equivalent to a 90° rotation about the Y axis.
+The pauli Y gate, equivalent to a 90° rotation about the Y axis; flips the imaginary and real parts of each element with each other.
 
 # Examples
 ```julia-repl
@@ -85,9 +86,9 @@ Z = [1 0;0 -1]
 """
     H = (1/√(2))*[1 1;1 -1]
 
-The Hadamard Gate, puts a state or matrix of bits into a linear combination or superposition of states, wherein the
-information is no longer deterministic but probabilistic in that you may find it either position with varying
-probabilities which may be manipulated before measurements.
+The Hadamard Gate, places a state into a state of superposition, this means it is a linear combination of states. This superposition and it's 
+representation as a matrix of complex numbers, can be interpreted mathematically by interpreting the linear combination of states linearly by
+utilizing bra-ket notation.
 
 # Examples
 ```julia-repl
@@ -102,7 +103,7 @@ H = (1/√(2))*[1 1;1 -1]
 """
     S = [1 0;0 e^((im*π)/2)]
 
-The S Gate initiates a phase of π/2.
+The S Gate initiates a phase of π/2 into a matrix of states.
 """
 S = [1 0;0 e^((im*π)/2)]
 
@@ -110,7 +111,7 @@ S = [1 0;0 e^((im*π)/2)]
 """
     T = [1 0;0 e^((im*π)/4)]
 
-The T Gate initiates a phase of π/4.
+The T Gate initiates a phase of π/4 into a matrix of states.
 """
 T = [1 0;0 e^((im*π)/4)]
 
@@ -118,8 +119,7 @@ T = [1 0;0 e^((im*π)/4)]
 """
     SX = (1/√(2))*[1+im 1-im;1-im 1+im]
 
-The Square Root of NOT gate acts the same as the Hadamard in essence, sometimes more cleanly,
-carrying less noise.
+The Square Root of NOT gate acts similarly
 
 # Examples
 ```julia-repl
@@ -241,16 +241,49 @@ function Hermitian(matrix)
 	conj(transpose(matrix))
 end
 
-# Measurement Operation
+# Complex Number Measurement
 """
-    Measure(matrix)
+    complexmeasure(x[a, b]) = √(a^2 + b^2)
 
-Measure a circuit matrix and return probabilities(with noise due to
-classical computational physics).
+This operation measures the absolute value of a given complex number, a+bi=z, known as z.
 
 # Examples
 ```julia-repl
-julia> Measure(H)
+julia> complexmeasure(1/√2+1/√2im)
+0.9999999
+"""
+function complexmeasure(x)
+	a = x.re
+        b = x.im
+        z = √((a^2)+(b^2))
+        return z
+end
+
+# Length Measurement Operation
+"""
+    vecmeasure( statevector )
+
+Measures the length of a given statevector in the 0 and 1 computational 
+basis states, returning the length of the statevector.
+
+# Examples
+```julia-repl
+julia> vecmeasure([0 1])
+1
+"""
+function vecmeasure( statevector )
+	sqrt((statevector^2)*(conj(transpose(statevector)))^2)
+end
+
+# Measurement Operation
+"""
+    absmeasure(matrix)
+
+Measure in the 0 and 1 computational basis states and output probabilities
+
+# Examples
+```julia-repl
+julia> abseasure(H)
 [0.5 0.5;
  0.5 -0.5]
 ```
@@ -258,28 +291,8 @@ julia> Measure(H)
 # Arguments
 - `matrix`: The matrix to be measured
 """
-function Measure(matrix)
-	matrix/√(2)
-end
-
-# 2x2 Inversion Operation
-"""
-    invert(matrix)
-
-Compute the inversion of a 2×2 matrix
-
-# Examples
-```julia-repl
-julia> invert([0 -i;i 0]
-[0 i;
- -i 0]
-```
-
-# Arguments
-- `matrix`: The matrix to be inverted
-"""
-function invert(matrix)
-	(1/((matrix[1]*matrix[4])-(matrix[2]*matrix[3])))*[matrix[4] -matrix[2];-matrix[3] matrix[1]]
+function measure(matrix)
+	abs.((matrix^2)*(Hermitian(matrix))^2)
 end
 
 # The RZ Gate
@@ -357,29 +370,6 @@ julia> P
 """
 P = [1 0;0 e^(im*pi)]
 
-# The "Imaginary Identity" gate
-"""
-    II = qp.I+(qp.I*qp.Y*qp.X)
-
-An I gate with a very basic imaginary component along its Echelon Form Diagonal, serves as a basic way to clone information into an imaginary bit component.
-
-# Examples
-```julia-repl
-julia> II
-[1-1im 0+0im;
- 0+0im 1+1im]
-```
-
-```julia-repl
-julia> II*II
-[0-2im  0+0im;
- 0+0im  0+2im]
- ```
-"""
-II = I+(I*Y*X)
-
-# Some potentially new gates I have constructed here
-
 # The "Spinning" Hadamard Gate
 """
     SpinH = ((Rotation([1 1;0 0], π))*H)
@@ -398,30 +388,13 @@ SpinH = ((Rotation([1 1;0 0], π))*H)
 """
     H = -eigvecs(SpinH/sqrt(2))
 
-By using this new "SpinH" gate and the eigenvectors of its measured state, 
-we can reconstruct a more accurate and faithful H gate that satisifies 
-H*H=I. In reality the SpinH is a spinning version of the originally defined
-Hadamard gate, defined as H = [1/√2 1/√2;1/√2 -1/√2]. This is the quantum gate
-which is notorious for being th egate which instigates a linear combination of states;
-in other words it is the quantum gate most commonly used to instigate states of superposition.
+By calculating the eigenvectors of a spinning Hadamard matrix's measured state, 
+we can reconstruct a more accurate and faithful H gate that satisifies H*H=I. 
+In reality the SpinH is a spinning version of the originally defined Hadamard 
+gate, defined as H = [1/√2 1/√2;1/√2 -1/√2]. This is the quantum gate which 
+is a key piece in instigating linear combinations or superpositions of states.
 """
 H = -eigvecs(SpinH/sqrt(2))
-
-# The X-Hadamard Gate
-"""
-    SpIn = (((([0 1;1 0]*RX)/sqrt(2))*SX)/sqrt(2))
-
-A new theoretical "I" gate based on the principle that both the bits state, 
-and its spins along the descending diagonal are in superpositions, meaning
-the I matrix is is represented as one 2 bits split in two between its real and imaginary parts.
-
-# Examples
-```julia-repl
-julia> XH
-[0.5-0.5im  0.0+0.0im;
- 0.0+0.0im  0.5-0.5im]
-"""
-XH = (((([0 1;1 0]*RX)/sqrt(2))*SX)/sqrt(2))
 
 # The Controlled-Not Gate
 """
@@ -534,93 +507,24 @@ Fredkin = [1 0 0 0 0 0;
 
 # The Adjacency Matrix
 """
-    Adj = [0 0 1 0;
-           0 0 0 1;
-	   1 0 0 0;
-	   0 1 0 0]
+    Adjacency = [0 0 1 0;
+                 0 0 0 1;
+	         1 0 0 0;
+	         0 1 0 0]
 
-The Adjacency Matrix is simply an expanded Identity matrix which can be used for 2-qubit computations.
+The Adjacency Matrix is simply an expanded Identity matrix which can be used 
+for 2-qubit computations.
 
 # Examples
 ```julia-repl
-julia> Adj
+julia> Adjacency
 [0 0 1 0;
  0 0 0 1;
  1 0 0 0;
  0 1 0 0]
 ```
 """
-Adj = [0 0 1 0;
-       0 0 0 1;
-       1 0 0 0;
-       0 1 0 0]
-
-# Set Intersection Operation
-⊕ = ⊻
-
-# B Gate
-"""
-     B(θ) = [cos(θ) -sin(θ);sin(θ) cos(θ)]
-
-Quantum "Beam" gate, acts similarly to a beam splitter, test this using this gate and the UB gate from QuantumPlayground (this UB gate is more specifically a optical photon beamsplitter gate).
-
-# Examples
-```julia-repl
-julia> B(pi/4)
-[1/√2 -1/√2
- 1/√2  1/√2]
-```
-"""
-B(θ) = [cos(θ) -sin(θ);sin(θ) cos(θ)]
-
-# Reverse Split Gate
-"""
-    RSplit = qp.UB(11pi/4)
-
-A version of the beam splitter, placing the matrix of states into a superposition of states, or a linear combination of states, partly opposite to that of the Lsplit gate.
-
-# Examples
-```julia-repl
-julia> Rsplit
-[ -0.707107+0.0im   0.0-0.707107im
-   0.0-0.707107im  -0.707107+0.0im ]
-```
-"""
-Rsplit = QuantumPlayground.UB(11pi/4)
-
-# Forward Split Gate
-"""
-    Fsplit = qp.UB(5pi/4)
-
-A version of the beam splitter, placing the matrix into a superposition of states, or linear combination of states, partly opposite to that of the Rsplit gate
-
-# Examples
-```julia-repl
-julia> Fsplit
-[ -0.707107+0.0im  -0.0+0.707107im
-  -0.0+0.707107im  -0.707107+0.0im ]
-"""
-Fsplit = QuantumPlayground.UB(5pi/4)
-
-# The SWAP Gate
-"""
-    SWAP = [1 0 0 0;
-            0 0 1 0;
-	    0 1 0 0;
-	    0 0 0 1]
-
-The Swap Gate reterally interchanges the states of 2 qubits with each other.
-
-# Examples
-```julia-repl
-julia> SWAP
-[1 0 0 0
- 0 0 1 0
- 0 1 0 0
- 0 0 0 1]
-```
-"""
-SWAP = [1 0 0 0;
-	0 0 1 0;
-	0 1 0 0;
-        0 0 0 1]
+Adjacency = [0 0 1 0;
+	   0 0 0 1;
+	   1 0 0 0;
+	   0 1 0 0]
