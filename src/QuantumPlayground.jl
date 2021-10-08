@@ -88,17 +88,60 @@ end
 
 Plots.plotly()
 
+# Cartesian Form Plotting Function
+"""
+"""
+function cartesianplot(
+		        cartesian_complex_number,
+			existing_plot=nothing
+			)
+	if(existing_plot == nothing)
+		a = cartesian_complex_number.re
+		b = cartesian_complex_number.im
+
+		testplot = plot(
+				xlims = (-abs(a)-0.5, abs(a)+0.5), 
+				ylims = (-abs(b)-0.5, abs(b)+0.5)
+	      		       )
+		testplot = plot!(
+	      			title = "Complex Plane Plot", 
+	      			xlabel = "Real", 
+	      			ylabel = "Imaginary"
+	      			)
+		testplot = plot!([0, a], [0, b])
+	else
+		a = cartesian_complex_number.re
+		b = cartesian_complex_number.im
+		testplot = plot(existing_plot)
+		testplot = plot!([0, a], [0, b])
+	end
+
+	return testplot
+end
+
 # Polar Form Plotting Function
 """
     polarplot(polar_complex_number)
 
 Plots a given polar form number on the complex polar plane.
 """
-function polarplot(polar_complex_number)
-	p = polar_complex_number[1]
-	θ = polar_complex_number[2]
-        
-	plot([0, θ], [0, p], proj = :polar, m = 2)
+function polarplot(
+		    polar_complex_number, 
+		    existing_plot=nothing
+		  )
+
+	if(existing_plot==nothing)
+            p = polar_complex_number[1]
+	    θ = polar_complex_number[2]
+            polar_plot = plot([0, p], [0, θ], proj = :polar, m = 2)
+        else
+            p = polar_complex_number[1]
+	    θ = polar_complex_number[2]
+	    polar_plot = plot(existing_plot)
+	    polar_plot = plot!([0, p], [0, θ])
+	end
+		
+	return polar_plot
 end
 	
 # Inclusions
