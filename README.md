@@ -27,20 +27,8 @@ repository and use the Pkg manager to compile and build yourself. This will be s
 Gates from the standard classical model of computing are defined alongside the standard gates which are used in the qubit
 model of quantum computation:
 
-- The AND Gate
-: `AND = [1 1 1 0;0 0 0 1]`, This gate is a classical digital logic gate with 2 or more inputs and 1 output that performs *logical conjunction*. The output of an AND gate is true only when all of the inputs are true. If one or more of an AND gate's inputs are false, then the output of the AND gate is false.
-
 - The NOT Gate(*Pauli X*)
 : `X = [0 1;1 0]`, Also called the negation, uses one input to generate one output. A NOT gate inverts the input.
-
-- The NAND Gate
-: `NAND = [0 0 0 1;1 1 1 0]`, A logic gate which produces an output which is false only if all its inputs are true; thus its output is complement to that of an AND gate.
-
-- The OR Gate
-: `OR = [1 0 0 0;0 1 1 1]`, A digital logic gate that implements logical disjunction (∨) from mathematical logic, effectively returning finds the maximum between two binary digits, just as the complementary AND function finds the minimum.
-
-- The NOR Gate
-: `NOR = [0 1 1 1;1 0 0 0]`, A digital logic gate that implements logical NOR, NOR is the result of the negation of the OR operator. It can also in some senses be seen as the inverse of an AND gate.
 
 - The Identity Gate
 : `I = [1 0;0 1]`, This is simply a gate that does nothing. Its matrix is the identity matrix.
@@ -68,6 +56,4 @@ these can be used like so:
 
 ## PhotonPlayGround.jl
 PhotonPlayground.jl serves as a sub-package to QuantumPlayground.jl wherein the user can explore the differences between classical qubit 
-modeled quantum calculations and photonic continuous-variable modeled quantum calculations. This sub-package is a WIP and the math is under
-inspection and refinement still.
-
+modeled quantum calculations and photonic continuous-variable modeled quantum calculations.
