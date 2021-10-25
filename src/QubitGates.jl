@@ -37,7 +37,8 @@ X = [0 1;1 0]
 """
     I = [1 0;0 1]
 
-The Identity Matrix, Returns the same matrix as whatever matrix it is applied to, the "identity".
+The Identity Matrix, Returns the same matrix as any matrix it is applied 
+towards, in other words, returning the "identity".
 
 # Examples
 ```julia-repl
@@ -52,7 +53,8 @@ I = [1 0;0 1]
 """
     Y = [0 -im;im 0]
 
-The pauli Y gate, equivalent to a 90° rotation about the Y axis; flips the imaginary and real parts of each element with each other.
+The pauli Y gate, equivalent to a 90° rotation about the Y axis; flips 
+the imaginary and real parts of each element with each other.
 
 # Examples
 ```julia-repl
@@ -82,9 +84,11 @@ Z = [1 0;0 -1]
 """
     H = (1/√(2))*[1 1;1 -1]
 
-The Hadamard Gate, places a state into a state of superposition, this means it is a linear combination of states. This superposition and it's 
-representation as a matrix of complex numbers, can be interpreted mathematically by interpreting the linear combination of states linearly by
-utilizing bra-ket notation.
+The Hadamard Gate, places a state into a state of superposition, this 
+means can be utilized as a linear combination of states. This 
+superposition and it's representation as a matrix of complex numbers, 
+can be interpreted mathematically by interpreting the linear combination 
+of states linearly by utilizing bra-ket notation.
 
 # Examples
 ```julia-repl

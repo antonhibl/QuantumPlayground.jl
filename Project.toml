@@ -4,12 +4,7 @@ authors = ["antonhibl <antonhibl11@gmail.com>"]
 version = "0.1.0"
 
 [deps]
-Calculus = "49dc2e85-a5d0-5ad3-a950-438e2897f1b9"
-ChemEquations = "75e6b969-eb85-49eb-b654-b2cb515e226f"
-CryptoUtils = "04afed74-ac16-11e9-37b6-1352e3e05830"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 MathPhysicalConstants = "b5851bab-7749-5a5f-a75f-46072e3516e8"
-Nettle = "49dea1ee-f6fa-5aa6-9a11-8816cee7d4b9"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
-Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
