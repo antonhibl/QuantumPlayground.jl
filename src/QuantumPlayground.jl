@@ -2,22 +2,18 @@ module QuantumPlayground
 
 # Importing and loading dependencies
 import LinearAlgebra
-import Calculus
-import Statistics
 import MathPhysicalConstants
 import Plots
-using Calculus
-using Statistics
 using MathPhysicalConstants
 using Plots
 
 # Euler's Constant
 """
-    e = MathConstants.e
+    e = ℯ
 
 Eulers Constant.
 """
-e = MathConstants.e # Euler's Constant
+e = ℯ
 
 # Tensor Product Operator
 """

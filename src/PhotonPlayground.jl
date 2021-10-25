@@ -8,11 +8,11 @@ k = 1
 
 # Eulers Constant
 """
-    e = MathConstants.e
+    e = ℯ
 
 Eulers Constant.
 """
-e = MathConstants.e
+e = ℯ
 
 # ħ constant
 """
@@ -35,14 +35,18 @@ end
 """
     â = (im/2)+im*(im/2)
 
-An annihilation operator lowers the number of particles in a given state by one.
+An annihilation operator lowers the number of particles in a given state 
+by one. It is representative of the annihilation of energy inside of a 
+quantum field.
 """
 â = (im/2)+im*(im/2)
 
 """
     âdag = (im/2)-im*(im/2)
 
-The creation operator increases the number of particles in a given state by one, and it is the adjoint of the annihilation operator.
+The creation operator increases the number of particles in a given state 
+by one, and it is the adjoint of the annihilation operator. It is 
+representative of the creation of energy inside of a quantum field.
 """
 âdag = (im/2)-im*(im/2)
 
@@ -65,14 +69,18 @@ p̂ = (1/im)*(sqrt((ħ*ω(k))/2))*(â-âdag)
 """
     â = (x̂+im)*p̂
 
-The creation operator.
+An annihilation operator lowers the number of particles in a given state 
+by one. It is representative of the annihilation of energy inside of a 
+quantum field.
 """
 â = (x̂+im)*p̂
 
 """
-    â = (x̂-im)*p̂
+    âdag = (x̂-im)*p̂
 
-The annihilation operator.
+The creation operator increases the number of particles in a given state 
+by one, and it is the adjoint of the annihilation operator. It is 
+representative of the creation of energy inside of a quantum field.
 """
 âdag = (x̂-im)*p̂
 

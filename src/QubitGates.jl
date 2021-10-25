@@ -3,24 +3,20 @@
 
 # Importing Dependencies
 import LinearAlgebra
-import Calculus
-import Statistics
 import QuantumPlayground
 
 # Specifying Use of Dependencies
 using LinearAlgebra
-using Calculus
-using Statistics
 using QuantumPlayground
 
 
 # Euler's Constant
 """
-    e = MathConstants.e
+    e = ℯ
 
 Eulers Constant.
 """
-e = MathConstants.e
+e = ℯ
 
 # The Pauli-X/NOT Gate
 """
@@ -241,58 +237,57 @@ function Hermitian(matrix)
 	conj(transpose(matrix))
 end
 
-# Complex Number Measurement
+# Length Measurement of a Complex Number ( The Modulus )
 """
-    complexmeasure(x[a, b]) = √(a^2 + b^2)
+    modlength(x[a, b]) = √(a^2 + b^2)
 
-This operation measures the absolute value of a given complex number, a+bi=z, known as z.
+This operation measures the length of a given complex number by 
+returning the modulus of the given complex number.
 
 # Examples
 ```julia-repl
-julia> complexmeasure(1/√2+1/√2im)
+julia> modlength(1/√2+1/√2im)
 0.9999999
 """
-function complexmeasure(x)
+function modlength(x)
 	a = x.re
-        b = x.im
-        z = √((a^2)+(b^2))
-        return z
+    b = x.im
+    p = √((a^2)+(b^2))
+    return p
+end
+
+"""
+    phase = atan(b/a)
+
+This operation measures the phase of a given complex number, an angle 
+which otherwise represents the "time" on the polar plane. Returned in
+terms of radians, convert to radians with `rad2deg`
+"""
+function phase(x)
+	a = x.re
+	b = x.im
+    θ = atan(b/a)
+	θ = mod(θ, 2pi)
+	return θ
 end
 
 # Length Measurement Operation
 """
-    vecmeasure( statevector )
+    magnitude( statevector )
 
-Measures the length of a given statevector in the 0 and 1 computational 
-basis states, returning the length of the statevector.
+Measures the statevector by returning the modulus of 2 complex numbers,
+this is referred to as the magnitude of the statevector. The statevector
+is a 1×2 or 2×1 vector consisting of 2 complex numbers typically 
+representing the state of a qubit.
 
 # Examples
 ```julia-repl
-julia> vecmeasure([0 1])
+julia> magnitude([0 1])
 1
 """
-function vecmeasure( statevector )
-	sqrt((statevector^2)*(conj(transpose(statevector)))^2)
-end
-
-# Measurement Operation
-"""
-    absmeasure(matrix)
-
-Measure in the 0 and 1 computational basis states and output probabilities
-
-# Examples
-```julia-repl
-julia> abseasure(H)
-[0.5 0.5;
- 0.5 -0.5]
-```
-
-# Arguments
-- `matrix`: The matrix to be measured
-"""
-function measure(matrix)
-	abs.((matrix^2)*(Hermitian(matrix))^2)
+function magnitude( statevector )
+	magnitude = sqrt((statevector^2)*(conj(transpose(statevector)))^2)
+	return magnitude
 end
 
 # The RZ Gate
@@ -528,3 +523,5 @@ Adjacency = [0 0 1 0;
 	   0 0 0 1;
 	   1 0 0 0;
 	   0 1 0 0]
+
+
